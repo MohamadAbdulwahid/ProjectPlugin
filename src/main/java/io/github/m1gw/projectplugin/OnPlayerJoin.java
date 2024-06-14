@@ -1,19 +1,54 @@
 package io.github.m1gw.projectplugin;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class OnPlayerJoin implements Listener {
-    // Using the spigot API try looking for all players if they're in the allowed area, if not, send an error in console
-    // The allowed area is from 0 to 100, if the player is outside this area, send an error
+    // Define the corners of the allowed area
+    private final Location corner1 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+    private final Location corner2 = new Location(Bukkit.getWorld("world"), 100, 256, 100);
+
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        if (player.getLocation().getBlockX() < 0 || player.getLocation().getBlockX() > 100) {
-            player.getServer().broadcastMessage("Player " + player.getName() + " is outside allowed area!");
+
+        // Check if the player is op and returns if so
+        if (player.isOp()) {
+            return;
         }
+
+        Location playerLocation = player.getLocation();
+
+        // Check if the player is outside the allowed area
+        if (isOutsideBox(playerLocation, corner1, corner2)) {
+            String message = "Player " + player.getName() + " is outside allowed area!";
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                if (onlinePlayer.isOp()) {
+                    onlinePlayer.sendMessage(message);
+                }
+            }
+            // Send the message to the console
+            Bukkit.getConsoleSender().sendMessage(message);
+
+            // Teleport the player to the specified location
+            player.teleport(new Location(player.getWorld(), 29, -1, 3));
+        }
+    }
+
+    // Check if a location is outside a box defined by two corners
+    private boolean isOutsideBox(Location location, Location corner1, Location corner2) {
+        return location.getX() < Math.min(corner1.getX(), corner2.getX()) ||
+                location.getY() < Math.min(corner1.getY(), corner2.getY()) ||
+                location.getZ() < Math.min(corner1.getZ(), corner2.getZ()) ||
+                location.getX() > Math.max(corner1.getX(), corner2.getX()) ||
+                location.getY() > Math.max(corner1.getY(), corner2.getY()) ||
+                location.getZ() > Math.max(corner1.getZ(), corner2.getZ());
     }
 }
