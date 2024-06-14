@@ -58,7 +58,7 @@ public final class ProjectPlugin extends JavaPlugin {
                         new ItemStack(Material.DIAMOND_SWORD),
                         new ItemStack(Material.BOW),
                         new ItemStack(Material.ARROW, 10),
-                        new ItemStack(Material.GOLDEN_APPLE, 5)
+                        new ItemStack(Material.GOLDEN_APPLE, 1)
                 },
                 { // Leather/Wood set (1)
                         new ItemStack(Material.LEATHER_CHESTPLATE),
@@ -68,7 +68,7 @@ public final class ProjectPlugin extends JavaPlugin {
                         new ItemStack(Material.WOODEN_SWORD),
                         new ItemStack(Material.BOW),
                         new ItemStack(Material.ARROW, 10),
-                        new ItemStack(Material.GOLDEN_APPLE, 5)
+                        new ItemStack(Material.GOLDEN_APPLE, 1)
                 },
                 { // Iron set (2)
                         new ItemStack(Material.IRON_CHESTPLATE),
@@ -78,7 +78,7 @@ public final class ProjectPlugin extends JavaPlugin {
                         new ItemStack(Material.IRON_SWORD),
                         new ItemStack(Material.BOW),
                         new ItemStack(Material.ARROW, 10),
-                        new ItemStack(Material.GOLDEN_APPLE, 5)
+                        new ItemStack(Material.GOLDEN_APPLE, 1)
 
                 }
         };
