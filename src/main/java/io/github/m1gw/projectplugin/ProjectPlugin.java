@@ -12,8 +12,8 @@ public final class ProjectPlugin extends JavaPlugin {
 
     public static boolean newPlayersCanJoin = true;
     public static String winners = "winners";
-    public String losers = "losers";
-    public String currentPlayers = "currentPlayers";
+    public static String losers = "losers";
+    public static String currentPlayers = "currentPlayers";
 
     @Override
     public void onEnable() {
@@ -22,9 +22,9 @@ public final class ProjectPlugin extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("Stupid PvP plugin enabled :)");
 
         // Add Teams
-        createTeam("winners");
-        createTeam("losers");
-        createTeam("currentPlayers");
+        createTeam(winners);
+        createTeam(losers);
+        createTeam(currentPlayers);
 
         // Register the command
         this.getCommand("gotospawn").setExecutor(new GoToSpawn());

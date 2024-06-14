@@ -20,9 +20,13 @@ public class AddNewPeopleToGame implements CommandExecutor {
                     sender.sendMessage("New players can no longer join the game");
                     return true;
                 }
+                else{
+                    sender.sendMessage("Current mode is: " + ProjectPlugin.newPlayersCanJoin);
+                    return true;
+                }
             }
             sender.sendMessage("Usage: /addnewpeopletogame <true/false>");
-            return false;
+            return true;
         }
         return false;
     }
