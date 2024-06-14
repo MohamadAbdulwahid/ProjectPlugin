@@ -1,0 +1,4 @@
+name: ProjectPlugin
+version: '${project.version}'
+main: io.github.m1gw.projectplugin.ProjectPlugin
+api-version: '1.20'
