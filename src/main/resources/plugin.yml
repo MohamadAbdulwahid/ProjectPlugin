@@ -2,3 +2,9 @@ name: ProjectPlugin
 version: '${project.version}'
 main: io.github.m1gw.projectplugin.ProjectPlugin
 api-version: '1.20'
+author: gw & black_2
+description: A plugin for the pvp event
+commands:
+  GoToSpawn:
+    description: Teleports to spawn
+    usage: /<command> [player]

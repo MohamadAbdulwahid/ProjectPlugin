@@ -11,23 +11,19 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OnPlayerJoin implements Listener {
     // Define the corners of the allowed area
-    private final Location corner1 = new Location(Bukkit.getWorld("world"), 32, -5, -17);
-    private final Location corner2 = new Location(Bukkit.getWorld("world"), -27, 10, 18);
+    private final Location corner1 = new Location(Bukkit.getWorld("world"), 32.5, -5.5, -17.5);
+    private final Location corner2 = new Location(Bukkit.getWorld("world"), -27.5, 10.5, 18.5);
 
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (!event.getPlayer().isOp()) {
-            Location teleportLocation = new Location(player.getWorld(), 29, 3, 4);
-            // Set the yaw and pitch manually
-            teleportLocation.setYaw(90); // Set yaw to 90 (facing to the right)
-            teleportLocation.setPitch(0); // Set pitch to 0 (looking straight ahead)
-            // Teleport the player to the specified location
-            player.teleport(teleportLocation);
+            TeleportToSpawn(player);
         }
     }
 
@@ -52,22 +48,16 @@ public class OnPlayerJoin implements Listener {
         // Check if the player is outside the allowed area
         if (isOutsideBox(playerLocation, corner1, corner2, player.getGameMode() == GameMode.SPECTATOR)) {
             String message = "Player " + player.getName() + " is outside allowed area!";
-            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                if (onlinePlayer.isOp()) {
-                    onlinePlayer.sendMessage(message);
-                }
+            List<Player> ops = Bukkit.getOnlinePlayers().stream()
+                    .filter(Player::isOp)
+                    .collect(Collectors.toList());
+            for (Player onlinePlayer : ops) {
+                onlinePlayer.sendMessage(message);
             }
             // Send the message to the console
             Bukkit.getConsoleSender().sendMessage(message);
 
-            Location teleportLocation = new Location(player.getWorld(), 29, 3, 4);
-
-            // Set the yaw and pitch manually
-            teleportLocation.setYaw(90); // Set yaw to 90 (facing to the right)
-            teleportLocation.setPitch(0); // Set pitch to 0 (looking straight ahead)
-
-            // Teleport the player to the specified location
-            player.teleport(teleportLocation);
+            TeleportToSpawn(player);
         }
     }
 
@@ -76,7 +66,7 @@ public class OnPlayerJoin implements Listener {
         Location adjustedCorner2 = corner2;
 
         if (isSpectator) {
-            adjustedCorner2 = new Location(Bukkit.getWorld("world"), corner2.getX(), 20.0, corner2.getZ());
+            adjustedCorner2 = new Location(Bukkit.getWorld("world"), corner2.getX(), 20.5, corner2.getZ());
         }
 
         return location.getX() < Math.min(corner1.getX(), adjustedCorner2.getX()) ||
@@ -87,4 +77,11 @@ public class OnPlayerJoin implements Listener {
                 location.getZ() > Math.max(corner1.getZ(), adjustedCorner2.getZ());
     }
 
+
+    public static void TeleportToSpawn(Player player) {
+        Location teleportLocation = new Location(player.getWorld(), 29, 3, 4);
+        teleportLocation.setYaw(90);
+        teleportLocation.setPitch(0);
+        player.teleport(teleportLocation);
+    }
 }
