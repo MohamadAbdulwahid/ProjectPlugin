@@ -4,12 +4,23 @@ main: io.github.m1gw.projectplugin.ProjectPlugin
 api-version: '1.20'
 author: gw & black_2
 description: A plugin for the pvp event
+
+
 commands:
   gotospawn:
     description: Allows players to go to spawn or send others to spawn
     usage: /<command> [player]
     permission: projectplugin.gotospawn
+  addnewpeopletogame:
+    description: Allows/Forbid players to join participants in the game when joined
+    usage: /<command> [player]
+    permission: projectplugin.addnewpeopletogame
+
+
 permissions:
   projectplugin.gotospawn:
+    description: admin
+    default: op
+  addnewpeopletogame:
     description: admin
     default: op
