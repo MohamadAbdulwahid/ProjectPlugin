@@ -19,9 +19,9 @@ public class OnPlayerJoin implements Listener {
 
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event){
+    public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if(!event.getPlayer().isOp()){
+        if (!event.getPlayer().isOp()) {
             Location teleportLocation = new Location(player.getWorld(), 29, 3, 4);
             // Set the yaw and pitch manually
             teleportLocation.setYaw(90); // Set yaw to 90 (facing to the right)
@@ -39,6 +39,12 @@ public class OnPlayerJoin implements Listener {
         // Check if the player is op and returns if so
         if (player.isOp()) {
             return;
+        }
+
+        if (player.isFlying() &&
+                (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)) {
+
+            player.kickPlayer("Flying is disabled");
         }
 
         Location playerLocation = player.getLocation();
