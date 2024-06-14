@@ -29,6 +29,7 @@ public final class ProjectPlugin extends JavaPlugin {
         // Register the command
         this.getCommand("gotospawn").setExecutor(new GoToSpawn());
         this.getCommand("addnewpeopletogame").setExecutor(new AddNewPeopleToGame());
+        this.getCommand("givetools").setExecutor(new GiveTools());
     }
 
     @Override
