@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.Arrays;
@@ -15,6 +16,21 @@ public class OnPlayerJoin implements Listener {
     // Define the corners of the allowed area
     private final Location corner1 = new Location(Bukkit.getWorld("world"), 32, -5, -17);
     private final Location corner2 = new Location(Bukkit.getWorld("world"), -27, 10, 18);
+
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event){
+        Player player = event.getPlayer();
+        if(!event.getPlayer().isOp()){
+            Location teleportLocation = new Location(player.getWorld(), 29, 3, 4);
+            // Set the yaw and pitch manually
+            teleportLocation.setYaw(90); // Set yaw to 90 (facing to the right)
+            teleportLocation.setPitch(0); // Set pitch to 0 (looking straight ahead)
+            // Teleport the player to the specified location
+            player.teleport(teleportLocation);
+        }
+    }
+
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
@@ -38,8 +54,14 @@ public class OnPlayerJoin implements Listener {
             // Send the message to the console
             Bukkit.getConsoleSender().sendMessage(message);
 
+            Location teleportLocation = new Location(player.getWorld(), 29, 3, 4);
+
+            // Set the yaw and pitch manually
+            teleportLocation.setYaw(90); // Set yaw to 90 (facing to the right)
+            teleportLocation.setPitch(0); // Set pitch to 0 (looking straight ahead)
+
             // Teleport the player to the specified location
-            player.teleport(new Location(player.getWorld(), 29, 3, 4));
+            player.teleport(teleportLocation);
         }
     }
 
