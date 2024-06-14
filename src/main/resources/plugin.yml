@@ -6,5 +6,8 @@ author: gw & black_2
 description: A plugin for the pvp event
 commands:
   GoToSpawn:
-    description: Teleports to spawn
+    description: Allows to go to spawn / for others
     usage: /<command> [player]
+permissions:
+  ProjectPlugin.GoToSpawn:
+    default: op
