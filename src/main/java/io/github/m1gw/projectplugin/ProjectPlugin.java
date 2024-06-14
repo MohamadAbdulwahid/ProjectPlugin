@@ -7,6 +7,11 @@ import org.bukkit.scoreboard.Team;
 
 public final class ProjectPlugin extends JavaPlugin {
 
+    public static boolean newPlayersCanJoin = true;
+    public static String winners = "winners";
+    public String losers = "losers";
+    public String currentPlayers = "currentPlayers";
+
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -18,7 +23,9 @@ public final class ProjectPlugin extends JavaPlugin {
         createTeam("losers");
         createTeam("currentPlayers");
 
+        // Register the command
         this.getCommand("gotospawn").setExecutor(new GoToSpawn());
+        this.getCommand("addnewpeopletogame").setExecutor(new AddNewPeopleToGame());
     }
 
     @Override

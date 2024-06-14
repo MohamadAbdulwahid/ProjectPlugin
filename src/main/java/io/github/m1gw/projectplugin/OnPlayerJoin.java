@@ -8,6 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,8 +24,13 @@ public class OnPlayerJoin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+
         if (!event.getPlayer().isOp()) {
             TeleportToSpawn(player);
+        }
+        if (ProjectPlugin.newPlayersCanJoin) {
+            scoreboard.getTeam(ProjectPlugin.winners).addEntities(player);
         }
     }
 
