@@ -30,7 +30,12 @@ public class OnPlayerJoin implements Listener {
             TeleportToSpawn(player);
         }
         if (ProjectPlugin.newPlayersCanJoin) {
-            scoreboard.getTeam(ProjectPlugin.winners).addEntities(player);
+            if (scoreboard.getPlayerTeam(player) == null) {
+                scoreboard.getTeam(ProjectPlugin.currentPlayers).addEntities(player);
+            }
+            else {
+                player.getServer().broadcastMessage("Player " + player.getName() + " is already in a team");
+            }
         }
     }
 
