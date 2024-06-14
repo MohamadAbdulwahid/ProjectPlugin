@@ -20,9 +20,9 @@ public class GiveTools implements CommandExecutor {
                 player.sendMessage("Giving tools to " + player.getName() + "...");
             }
             player = (Player) sender;
-            player.sendMessage("Giving tools to you...");
-            player.getInventory().clear();
             assert args != null;
+            player.sendMessage("Giving toolset " + args[1] + "to you...");
+            player.getInventory().clear();
             ProjectPlugin.giveTools(player, Integer.parseInt(args[1]));
         }
         return true;
