@@ -1,6 +1,7 @@
 package io.github.m1gw.projectplugin;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,8 +13,8 @@ import java.util.List;
 
 public class OnPlayerJoin implements Listener {
     // Define the corners of the allowed area
-    private final Location corner1 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-    private final Location corner2 = new Location(Bukkit.getWorld("world"), 100, 256, 100);
+    private final Location corner1 = new Location(Bukkit.getWorld("world"), 32, -5, -17);
+    private final Location corner2 = new Location(Bukkit.getWorld("world"), -27, 10, 18);
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
@@ -27,7 +28,7 @@ public class OnPlayerJoin implements Listener {
         Location playerLocation = player.getLocation();
 
         // Check if the player is outside the allowed area
-        if (isOutsideBox(playerLocation, corner1, corner2)) {
+        if (isOutsideBox(playerLocation, corner1, corner2, player.getGameMode() == GameMode.SPECTATOR)) {
             String message = "Player " + player.getName() + " is outside allowed area!";
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                 if (onlinePlayer.isOp()) {
@@ -38,17 +39,24 @@ public class OnPlayerJoin implements Listener {
             Bukkit.getConsoleSender().sendMessage(message);
 
             // Teleport the player to the specified location
-            player.teleport(new Location(player.getWorld(), 29, -1, 3));
+            player.teleport(new Location(player.getWorld(), 29, 3, 4));
         }
     }
 
     // Check if a location is outside a box defined by two corners
-    private boolean isOutsideBox(Location location, Location corner1, Location corner2) {
-        return location.getX() < Math.min(corner1.getX(), corner2.getX()) ||
-                location.getY() < Math.min(corner1.getY(), corner2.getY()) ||
-                location.getZ() < Math.min(corner1.getZ(), corner2.getZ()) ||
-                location.getX() > Math.max(corner1.getX(), corner2.getX()) ||
-                location.getY() > Math.max(corner1.getY(), corner2.getY()) ||
-                location.getZ() > Math.max(corner1.getZ(), corner2.getZ());
+    private boolean isOutsideBox(Location location, Location corner1, Location corner2, boolean isSpectator) {
+        Location adjustedCorner2 = corner2;
+
+        if (isSpectator) {
+            adjustedCorner2 = new Location(Bukkit.getWorld("world"), corner2.getX(), 20.0, corner2.getZ());
+        }
+
+        return location.getX() < Math.min(corner1.getX(), adjustedCorner2.getX()) ||
+                location.getY() < Math.min(corner1.getY(), adjustedCorner2.getY()) ||
+                location.getZ() < Math.min(corner1.getZ(), adjustedCorner2.getZ()) ||
+                location.getX() > Math.max(corner1.getX(), adjustedCorner2.getX()) ||
+                location.getY() > Math.max(corner1.getY(), adjustedCorner2.getY()) ||
+                location.getZ() > Math.max(corner1.getZ(), adjustedCorner2.getZ());
     }
+
 }
