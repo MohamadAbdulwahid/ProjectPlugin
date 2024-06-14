@@ -11,6 +11,7 @@ public final class ProjectPlugin extends JavaPlugin {
     public static String winners = "winners";
     public static String losers = "losers";
     public static String currentPlayers = "currentPlayers";
+    public static String spectators = "spectators";
 
     @Override
     public void onEnable() {
@@ -22,6 +23,7 @@ public final class ProjectPlugin extends JavaPlugin {
         createTeam(winners);
         createTeam(losers);
         createTeam(currentPlayers);
+        createTeam(spectators);
 
         // Register the command
         this.getCommand("gotospawn").setExecutor(new GoToSpawn());
