@@ -9,15 +9,19 @@ description: A plugin for the pvp event
 commands:
   gotospawn:
     description: Allows players to go to spawn or send others to spawn
-    usage: /<command> [player]
+    usage: /<command> ([player])
     permission: projectplugin.admin
   addnewpeopletogame:
     description: Allows/Forbid players to join participants in the game when joined
-    usage: /<command> [player]
+    usage: /addnewpeopletogame true/false
     permission: projectplugin.admin
   givetools:
     description: Allows players to get tools
     usage: /<command> [player]
+    permission: projectplugin.admin
+  battle:
+    description: Allows players to start a battle
+    usage: /battle
     permission: projectplugin.admin
 
 
