@@ -24,7 +24,6 @@ commands:
     usage: /battle
     permission: projectplugin.admin
 
-
 permissions:
   admin:
     description: admin

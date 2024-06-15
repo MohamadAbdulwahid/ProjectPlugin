@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Build And Upload" type="CompoundRunConfigurationType">
+    <toRun name="ProjectPlugin [compile,jar:jar]" type="MavenRunConfiguration" />
+    <toRun name="Upload" type="ShConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
