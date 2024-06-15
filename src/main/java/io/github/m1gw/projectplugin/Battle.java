@@ -1,6 +1,7 @@
 package io.github.m1gw.projectplugin;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -10,16 +11,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class Battle implements CommandExecutor {
-    public Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
-    public boolean battleStarted = false;
-    public Player player1Player;
-    public Player player2Player;
+    public static Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+    public static boolean battleStarted = false;
+    public static Player player1Player;
+    public static Player player2Player;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -45,8 +43,12 @@ public class Battle implements CommandExecutor {
                     // teleport both players to the battle area
                     player1Player = Bukkit.getPlayer(player1.getName());
                     player2Player = Bukkit.getPlayer(player2.getName());
+
                     player1Player.teleport(new org.bukkit.Location(Bukkit.getWorld("world"), -23, -4, 0, -90, 0));
                     player2Player.teleport(new org.bukkit.Location(Bukkit.getWorld("world"), 23, -4, -1, 90, 0));
+                    player1Player.setGameMode(GameMode.ADVENTURE);
+                    player2Player.setGameMode(GameMode.ADVENTURE);
+
                     battleStarted = true;
 
                     // give them tools
@@ -66,12 +68,16 @@ public class Battle implements CommandExecutor {
                 }
             }
             //  /battle start
-            else if (args != null && args.length == 1 && args[0] == "start" && battleStarted){
+            else if (args.length == 1 && "start".equals(args[0].toString())){
+                if (!battleStarted){
+                    sender.sendMessage("No battle has been started yet");
+                    return true;
+                }
                 // activate timer and remove glass walls
                 Bukkit.getWorld("world").getBlockAt(12,-10, 5).setType(Material.REDSTONE_BLOCK);
 
                 // wait for one of the players in the arena to die and add them to winner/loser teams
-
+                battleStarted = false;
 
             }
             else {

@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 
 public class OnPlayerJoin implements Listener {
     // Define the corners of the allowed area
-    private final Location corner1 = new Location(Bukkit.getWorld("world"), 32.5, -5.5, -17.5);
-    private final Location corner2 = new Location(Bukkit.getWorld("world"), -27.5, 10.5, 18.5);
+    private final Location corner1 = new Location(Bukkit.getWorld("world"), 38.5, -5.5, -21.5);
+    private final Location corner2 = new Location(Bukkit.getWorld("world"), -31.5, 10.5, 21.5);
 
 
     @EventHandler
@@ -28,8 +28,10 @@ public class OnPlayerJoin implements Listener {
 
         if (!event.getPlayer().isOp()) {
             TeleportToSpawn(player);
+            player.getInventory().clear();
         }
-        if (ProjectPlugin.newPlayersCanJoin) {
+
+        if (ProjectPlugin.newPlayersCanJoin) { // && !player.isOp()
             if (scoreboard.getPlayerTeam(player) == null || !scoreboard.getPlayerTeam(player).getName().equals(ProjectPlugin.currentPlayers)) {
                 scoreboard.getTeam(ProjectPlugin.currentPlayers).addEntities(player);
             }
@@ -93,7 +95,7 @@ public class OnPlayerJoin implements Listener {
 
 
     public static void TeleportToSpawn(Player player) {
-        Location teleportLocation = new Location(player.getWorld(), 29, 3, 4);
+        Location teleportLocation = new Location(player.getWorld(), 31.5, 3.1, -0.5);
         teleportLocation.setYaw(90);
         teleportLocation.setPitch(0);
         player.teleport(teleportLocation);

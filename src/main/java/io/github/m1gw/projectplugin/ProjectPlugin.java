@@ -20,10 +20,10 @@ public final class ProjectPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
         Bukkit.getPluginManager().registerEvents(new OnPlayerJoin(), this);
-        Bukkit.getPluginManager().registerEvents(new BattleDeathListener(something missing here), this);
-        Bukkit.getConsoleSender().sendMessage("Stupid PvP plugin enabled :)");
+        Bukkit.getPluginManager().registerEvents(new BattleDeathListener(new Battle()), this);
+
+        Bukkit.getConsoleSender().sendMessage("PvP plugin enabled :)");
 
         // Add Teams
         createTeam(winners);
@@ -34,13 +34,13 @@ public final class ProjectPlugin extends JavaPlugin {
         // Register the command
         this.getCommand("gotospawn").setExecutor(new GoToSpawn());
         this.getCommand("addnewpeopletogame").setExecutor(new AddNewPeopleToGame());
-        this.getCommand("givetools").setExecutor(new GiveTools());
         this.getCommand("battle").setExecutor(new Battle());
+        this.getCommand("givewinnersplaying").setExecutor(new GiveWinnersPlaying());
+        this.getCommand("afk").setExecutor(new AfkCommand());
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
     }
 
 
@@ -55,8 +55,9 @@ public final class ProjectPlugin extends JavaPlugin {
         Team team = scoreboard.registerNewTeam(teamName);
     }
 
-    public static void giveTools(Player player, int setIndex){
-        ItemStack[][] equipmentSets = new ItemStack[][] {
+    public static void giveTools(Player player, int setIndex) {
+        player.getInventory().clear();
+        ItemStack[][] equipmentSets = new ItemStack[][]{
                 { // Diamond set (0)
                         new ItemStack(Material.DIAMOND_CHESTPLATE),
                         new ItemStack(Material.DIAMOND_LEGGINGS),
@@ -65,7 +66,8 @@ public final class ProjectPlugin extends JavaPlugin {
                         new ItemStack(Material.DIAMOND_SWORD),
                         new ItemStack(Material.BOW),
                         new ItemStack(Material.ARROW, 10),
-                        new ItemStack(Material.GOLDEN_APPLE, 1)
+                        new ItemStack(Material.GOLDEN_APPLE, 1),
+                        new ItemStack(Material.SHIELD)
                 },
                 { // Leather/Wood set (1)
                         new ItemStack(Material.LEATHER_CHESTPLATE),
@@ -75,7 +77,8 @@ public final class ProjectPlugin extends JavaPlugin {
                         new ItemStack(Material.WOODEN_SWORD),
                         new ItemStack(Material.BOW),
                         new ItemStack(Material.ARROW, 10),
-                        new ItemStack(Material.GOLDEN_APPLE, 1)
+                        new ItemStack(Material.GOLDEN_APPLE, 1),
+                        new ItemStack(Material.SHIELD)
                 },
                 { // Iron set (2)
                         new ItemStack(Material.IRON_CHESTPLATE),
@@ -85,8 +88,8 @@ public final class ProjectPlugin extends JavaPlugin {
                         new ItemStack(Material.IRON_SWORD),
                         new ItemStack(Material.BOW),
                         new ItemStack(Material.ARROW, 10),
-                        new ItemStack(Material.GOLDEN_APPLE, 1)
-
+                        new ItemStack(Material.GOLDEN_APPLE, 1),
+                        new ItemStack(Material.SHIELD)
                 }
         };
         ItemStack[] equipmentSet = equipmentSets[setIndex];
@@ -94,6 +97,8 @@ public final class ProjectPlugin extends JavaPlugin {
         player.getInventory().setLeggings(equipmentSet[1]);
         player.getInventory().setBoots(equipmentSet[2]);
         player.getInventory().setHelmet(equipmentSet[3]);
+        player.getInventory().setItemInOffHand(equipmentSet[8]);
+
         player.getInventory().addItem(equipmentSet[4]);
         player.getInventory().addItem(equipmentSet[5]);
         player.getInventory().addItem(equipmentSet[6]);
@@ -109,6 +114,24 @@ public final class ProjectPlugin extends JavaPlugin {
                 }
             }
         }
+    }
+
+    public static void sendInfoToUs(String message) {
+        Player player1 = Bukkit.getPlayer("mohamadGw");
+        Player player2 = Bukkit.getPlayer("Black_2");
+        //broadcast
+        Bukkit.broadcastMessage("[Pvp info broadcast]: " + message);
+
+        message = "[Pvp info]: " + message;
+
+        if (player1 != null) {
+            player1.sendMessage(message);
+        }
+
+        if (player2 != null) {
+            player2.sendMessage(message);
+        }
+
     }
 }
 

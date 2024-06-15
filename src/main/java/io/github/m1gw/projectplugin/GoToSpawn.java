@@ -9,8 +9,8 @@ public class GoToSpawn implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player player;
-        if (sender instanceof Player) {
+        Player player = (Player) sender;
+        if (sender != null) {
             if(args != null && args.length > 0) {
                 player = org.bukkit.Bukkit.getPlayer(args[0]);
                 if(player == null) {
@@ -19,8 +19,7 @@ public class GoToSpawn implements CommandExecutor {
                 }
                 player.sendMessage("Teleporting " + player.getName() + " to spawn...");
             }
-            player = (Player) sender;
-            player.sendMessage("Teleporting to spawn...");
+            sender.sendMessage("Teleporting " + player.getName() + " to spawn...");
             OnPlayerJoin.TeleportToSpawn(player);
         }
         return true;

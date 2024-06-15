@@ -15,14 +15,17 @@ commands:
     description: Allows/Forbid players to join participants in the game when joined
     usage: /addnewpeopletogame true/false
     permission: projectplugin.admin
-  givetools:
-    description: Allows players to get tools
-    usage: /<command> [player]
-    permission: projectplugin.admin
   battle:
     description: Allows players to start a battle
     usage: /battle
     permission: projectplugin.admin
+  givewinnersplaying:
+    description: gives the currentlyplaying team to all winners
+    usage: /givewinnersplaying
+    permission: projectplugin.admin
+  afk:
+    description: Allows players to go afk
+    usage: /afk
 
 permissions:
   admin:
