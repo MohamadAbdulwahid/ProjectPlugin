@@ -37,6 +37,7 @@ public class Battle implements CommandExecutor {
                     OfflinePlayer player1 = membersList.get(index1);
                     OfflinePlayer player2 = membersList.get(index2);
                     sender.sendMessage("found players: " + player1.getName() + " and " + player2.getName());
+
                 }
                 else {
                     sender.sendMessage("Not enough players to start the battle");
