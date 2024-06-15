@@ -1,3 +1,5 @@
+package io.github.m1gw.projectplugin;
+
 import io.github.m1gw.projectplugin.Battle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
