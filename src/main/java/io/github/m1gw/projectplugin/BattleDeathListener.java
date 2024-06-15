@@ -27,10 +27,6 @@ public class BattleDeathListener implements Listener {
         }
 
 
-        Bukkit.broadcastMessage("After Death:");
-        Bukkit.broadcastMessage((Battle.player1Player == null) + " " + Battle.player1Player.name());
-        Bukkit.broadcastMessage((Battle.player2Player == null) + " " + Battle.player2Player.name());
-
         if (player.getName().toString().equalsIgnoreCase(Battle.player1Player.getName().toString())
                 || player.getName().toString().equalsIgnoreCase(Battle.player2Player.getName().toString())) {
 
@@ -50,15 +46,15 @@ public class BattleDeathListener implements Listener {
             }
 
             // Add the players to the winner/loser teams
-            Team winners = battle.scoreboard.getTeam("winners");
-            Team losers = battle.scoreboard.getTeam("losers");
+            Team winners = Battle.scoreboard.getTeam("winners");
+            Team losers = Battle.scoreboard.getTeam("losers");
             if (winners != null) winners.addPlayer(winner);
             if (losers != null) losers.addPlayer(loser);
 
             // Reset the battle
-            battle.battleStarted = false;
-            battle.player1Player = null;
-            battle.player2Player = null;
+            Battle.battleStarted = false;
+            Battle.player1Player = null;
+            Battle.player2Player = null;
         }
     }
 }
