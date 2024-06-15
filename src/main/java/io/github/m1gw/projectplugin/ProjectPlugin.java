@@ -22,7 +22,7 @@ public final class ProjectPlugin extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         Bukkit.getPluginManager().registerEvents(new OnPlayerJoin(), this);
-        Bukkit.getConsoleSender().sendMessage("Stupid PvP plugin enabled :)");
+        Bukkit.getPluginManager().registerEvents(new BattleDeathListener(this), this);        Bukkit.getConsoleSender().sendMessage("Stupid PvP plugin enabled :)");
 
         // Add Teams
         createTeam(winners);
