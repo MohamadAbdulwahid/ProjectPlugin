@@ -50,6 +50,14 @@ public class Battle implements CommandExecutor {
                     player2Player.teleport(new org.bukkit.Location(Bukkit.getWorld("world"), 23, -4, -1, 90, 0));
                     player1Player.setGameMode(GameMode.ADVENTURE);
                     player2Player.setGameMode(GameMode.ADVENTURE);
+                    player1Player.setHealth(20);
+                    player2Player.setHealth(20);
+                    player1Player.setFoodLevel(20);
+                    player2Player.setFoodLevel(20);
+                    player1Player.setSaturation(20);
+                    player2Player.setSaturation(20);
+                    player1Player.getActivePotionEffects().clear();
+                    player2Player.getActivePotionEffects().clear();
 
                     battleStarted = true;
 
@@ -76,9 +84,6 @@ public class Battle implements CommandExecutor {
                 }
                 // activate timer and remove glass walls
                 Bukkit.getWorld("world").getBlockAt(12, -10, 5).setType(Material.REDSTONE_BLOCK);
-
-                // wait for one of the players in the arena to die and add them to winner/loser teams
-                battleStarted = false;
 
             } else {
                 sender.sendMessage("Usage: /battle");

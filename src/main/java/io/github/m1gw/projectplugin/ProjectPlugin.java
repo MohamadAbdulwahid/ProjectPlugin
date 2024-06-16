@@ -23,11 +23,12 @@ public final class ProjectPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new OnPlayerJoin(), this);
         Bukkit.getPluginManager().registerEvents(new BattleDeathListener(new Battle()), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuit(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDamage(), this);
 
         Bukkit.getConsoleSender().sendMessage("PvP plugin enabled :)");
 
         //check corrent version
-        Bukkit.broadcastMessage("V7");
+        Bukkit.broadcastMessage("123");
 
         // Add Teams
         createTeam(winners);

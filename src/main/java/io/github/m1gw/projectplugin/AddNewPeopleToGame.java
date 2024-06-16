@@ -21,11 +21,11 @@ public class AddNewPeopleToGame implements CommandExecutor {
                     return true;
                 }
             }
-            if (args == null){
+            if (args == null || args.length == 0){
                 sender.sendMessage("Current mode is: " + ProjectPlugin.newPlayersCanJoin);
                 return true;
             }
-            sender.sendMessage("Usage: /addnewpeopletogame [true/false]");
+            sender.sendMessage("Usage: /addnewpeopletogame [true/false] - " + args.length +  " - " + (args == null));
             return true;
         }
         return false;

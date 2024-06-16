@@ -3,6 +3,7 @@ package io.github.m1gw.projectplugin;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,22 +14,29 @@ public class PlayerQuit implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
-        if (player.isOp()) {
+        if (event.getPlayer().isOp() || (event.getPlayer() != Battle.player2Player && event.getPlayer() != Battle.player1Player)
+                || Battle.player1Player == null || Battle.player2Player == null) {
+            Bukkit.broadcastMessage("We got here!");
             return;
         }
 
-        Player winner, loser;
-        if (player.equals(Battle.player1Player)) {
+        OfflinePlayer player = event.getPlayer();
+
+        OfflinePlayer winner, loser;
+        if (player.getName().equalsIgnoreCase(Battle.player1Player.getName())) {
             winner = Battle.player2Player;
             loser = Battle.player1Player;
             ProjectPlugin.sendInfoToUs("Player 1 (" + loser.getName() + ") has left the game with the reason: " + event.getQuitMessage());
             Bukkit.broadcastMessage("Player 1 (" + loser.getName() + ") has left the game" + "Match ended");
-        } else {
+        } else if (player.getName().equalsIgnoreCase(Battle.player2Player.getName())){
             winner = Battle.player1Player;
             loser = Battle.player2Player;
             ProjectPlugin.sendInfoToUs("Player 2 (" + loser.getName() + ") has left the game with the reason: " + event.getQuitMessage());
             Bukkit.broadcastMessage("Player 2 (" + loser.getName() + ") has left the game. " + "Match ended");
+        }
+        else {
+            Bukkit.broadcastMessage("_How did we get here?_");
+            return;
         }
 
         Team winners = Battle.scoreboard.getTeam("winners");
@@ -42,10 +50,15 @@ public class PlayerQuit implements Listener {
         Battle.player1Player = null;
         Battle.player2Player = null;
 
-        OnPlayerJoin.TeleportToSpawn(winner);
-        winner.getInventory().clear();
+        OnPlayerJoin.TeleportToSpawn(winner.getPlayer());
+        if (winner.isOnline()) {
+            winner.getPlayer().getInventory().clear();
+        }
 
         ProjectPlugin.fillBlocks(Bukkit.getWorld("world"), -11, -10, 5, 12, -10, 8, Material.OAK_PLANKS);
+        //display title to everyone
+
+
         ///fill 11 -10 5 12 -10 8 minecraft:oak_planks
     }
 }

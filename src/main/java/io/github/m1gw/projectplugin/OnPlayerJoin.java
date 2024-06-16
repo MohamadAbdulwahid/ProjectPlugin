@@ -1,6 +1,7 @@
 package io.github.m1gw.projectplugin;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -8,6 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
@@ -24,6 +27,9 @@ public class OnPlayerJoin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+
+        player.getActivePotionEffects().add(new PotionEffect(PotionEffectType.SATURATION, 1000000, 1, false));
+
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
 
         if (!event.getPlayer().isOp()) {
@@ -49,12 +55,15 @@ public class OnPlayerJoin implements Listener {
         if (ProjectPlugin.newPlayersCanJoin) { // && !player.isOp()
             if (scoreboard.getPlayerTeam(player) == null || !scoreboard.getPlayerTeam(player).getName().equals(ProjectPlugin.currentPlayers)) {
                 scoreboard.getTeam(ProjectPlugin.currentPlayers).addEntities(player);
+                player.setGameMode(GameMode.ADVENTURE);
             }
             else {
                 player.getServer().broadcastMessage("Player " + player.getName() + " is already in a team");
                 player.getServer().broadcastMessage("So turning him into a spectator...");
                 scoreboard.getTeam(ProjectPlugin.spectators).addEntities(player);
             }
+        }else{
+            scoreboard.getTeam(ProjectPlugin.spectators).addEntities(player);
         }
     }
 
@@ -114,5 +123,6 @@ public class OnPlayerJoin implements Listener {
         teleportLocation.setYaw(90);
         teleportLocation.setPitch(0);
         player.teleport(teleportLocation);
+        player.getActivePotionEffects().add(new PotionEffect(PotionEffectType.SATURATION, 1000000, 1, false));
     }
 }

@@ -21,13 +21,15 @@ public class BattleDeathListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getPlayer();
 
-        if (!Battle.battleStarted) {
+        if (!Battle.battleStarted) { // it should be false, when we do /battle start
+            ProjectPlugin.sendInfoToUs("battleStarted: " + Battle.battleStarted);
             return;
         }
 
 
         if (player.getName().toString().equalsIgnoreCase(Battle.player1Player.getName().toString())
                 || player.getName().toString().equalsIgnoreCase(Battle.player2Player.getName().toString())) {
+
 
             Battle.player1Player.getInventory().clear();
             Battle.player2Player.getInventory().clear();
@@ -60,6 +62,7 @@ public class BattleDeathListener implements Listener {
 
             winner.getInventory().clear();
             loser.getInventory().clear();
+            Battle.battleStarted = false;
         }
     }
 }
