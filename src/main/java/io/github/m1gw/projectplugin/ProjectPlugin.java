@@ -26,6 +26,9 @@ public final class ProjectPlugin extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage("PvP plugin enabled :)");
 
+        //check corrent version
+        Bukkit.broadcastMessage("V7");
+
         // Add Teams
         createTeam(winners);
         createTeam(losers);
@@ -37,7 +40,7 @@ public final class ProjectPlugin extends JavaPlugin {
         this.getCommand("addnewpeopletogame").setExecutor(new AddNewPeopleToGame());
         this.getCommand("battle").setExecutor(new Battle());
         this.getCommand("givewinnersplaying").setExecutor(new GiveWinnersPlaying());
-        this.getCommand("afk").setExecutor(new AfkCommand());
+        this.getCommand("decide").setExecutor(new DecideCommand());
     }
 
     @Override
@@ -120,8 +123,8 @@ public final class ProjectPlugin extends JavaPlugin {
     public static void sendInfoToUs(String message) {
         Player player1 = Bukkit.getPlayer("mohamadGw");
         Player player2 = Bukkit.getPlayer("Black_2");
-        //broadcast
-        Bukkit.broadcastMessage("[Pvp info broadcast]: " + message);
+
+        //Bukkit.broadcastMessage("[Pvp info broadcast]: " + message);
 
         message = "[Pvp info]: " + message;
 
@@ -134,6 +137,7 @@ public final class ProjectPlugin extends JavaPlugin {
         }
 
     }
+
 }
 
 

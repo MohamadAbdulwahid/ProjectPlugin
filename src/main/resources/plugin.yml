@@ -23,9 +23,10 @@ commands:
     description: gives the currentlyplaying team to all winners
     usage: /givewinnersplaying
     permission: projectplugin.admin
-  afk:
-    description: Allows players to go afk
-    usage: /afk
+  decide:
+    description: decide what to do when a player disconnects
+    usage: /decide
+    permission: projectplugin.admin
 
 permissions:
   admin:

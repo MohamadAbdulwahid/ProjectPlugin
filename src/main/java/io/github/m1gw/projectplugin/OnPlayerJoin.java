@@ -31,6 +31,21 @@ public class OnPlayerJoin implements Listener {
             player.getInventory().clear();
         }
 
+        if(Battle.disconnectedPlayers.contains(player.getName())) {
+            player.sendMessage("You have disconnected in the last match. Please wait until we decide if you can play again.");
+            player.setGameMode(GameMode.SPECTATOR);
+            player.getInventory().clear();
+            return;
+        }
+
+        if(Battle.bannedPlayers.contains(player.getName())) {
+            player.sendMessage("You have been banned from playing. Please contact an admin if you think this is a mistake.");
+            player.setGameMode(GameMode.SPECTATOR);
+            player.getInventory().clear();
+            scoreboard.getTeam(ProjectPlugin.spectators).addEntities(player);
+            return;
+        }
+
         if (ProjectPlugin.newPlayersCanJoin) { // && !player.isOp()
             if (scoreboard.getPlayerTeam(player) == null || !scoreboard.getPlayerTeam(player).getName().equals(ProjectPlugin.currentPlayers)) {
                 scoreboard.getTeam(ProjectPlugin.currentPlayers).addEntities(player);

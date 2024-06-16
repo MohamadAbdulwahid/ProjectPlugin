@@ -19,7 +19,6 @@ public class BattleDeathListener implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        ProjectPlugin.sendInfoToUs("Test 1 passed!");
         Player player = event.getPlayer();
 
         if (!Battle.battleStarted) {
@@ -55,6 +54,12 @@ public class BattleDeathListener implements Listener {
             Battle.battleStarted = false;
             Battle.player1Player = null;
             Battle.player2Player = null;
+
+            OnPlayerJoin.TeleportToSpawn(winner);
+            OnPlayerJoin.TeleportToSpawn(loser);
+
+            winner.getInventory().clear();
+            loser.getInventory().clear();
         }
     }
 }

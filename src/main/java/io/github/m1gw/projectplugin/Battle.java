@@ -18,6 +18,8 @@ public class Battle implements CommandExecutor {
     public static boolean battleStarted = false;
     public static Player player1Player;
     public static Player player2Player;
+    public static Set<String> disconnectedPlayers = new HashSet<>();
+    public static Set<String> bannedPlayers = new HashSet<>();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -60,27 +62,25 @@ public class Battle implements CommandExecutor {
                     team.removePlayer(player2);
 
                     // fill blocks form block x to block y with glass
-                    ProjectPlugin.fillBlocks(Bukkit.getWorld("world"), 21, -2,-2, 21, -4, 0, Material.GLASS);
+                    ProjectPlugin.fillBlocks(Bukkit.getWorld("world"), 21, -2, -2, 21, -4, 0, Material.GLASS);
                     ProjectPlugin.fillBlocks(Bukkit.getWorld("world"), -21, -2, 1, -21, -4, -1, Material.GLASS);
-                }
-                else {
+                } else {
                     sender.sendMessage("Not enough players to start the battle");
                 }
             }
             //  /battle start
-            else if (args.length == 1 && "start".equals(args[0].toString())){
-                if (!battleStarted){
+            else if (args.length == 1 && "start".equals(args[0].toString())) {
+                if (!battleStarted) {
                     sender.sendMessage("No battle has been started yet");
                     return true;
                 }
                 // activate timer and remove glass walls
-                Bukkit.getWorld("world").getBlockAt(12,-10, 5).setType(Material.REDSTONE_BLOCK);
+                Bukkit.getWorld("world").getBlockAt(12, -10, 5).setType(Material.REDSTONE_BLOCK);
 
                 // wait for one of the players in the arena to die and add them to winner/loser teams
                 battleStarted = false;
 
-            }
-            else {
+            } else {
                 sender.sendMessage("Usage: /battle");
             }
         }
