@@ -32,7 +32,7 @@ public class PlayerDamage implements Listener {
         if (player.isOp()) {
             return;
         }
-        
+
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block clickedBlock = event.getClickedBlock();
             if (clickedBlock.getType() != Material.AIR) {

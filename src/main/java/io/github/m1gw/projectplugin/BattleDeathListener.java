@@ -64,9 +64,10 @@ public class BattleDeathListener implements Listener {
             loser.getInventory().clear();
             Battle.battleStarted = false;
 
-            Bukkit.broadcastMessage("The player " + winner.getName() + " has won the battle against " + loser.getName() + " congrats!");
-            for (Player player2 : Bukkit.getOnlinePlayers()) {
-                player2.sendTitle(ChatColor.DARK_GREEN + "gg", "", 0, 20, 1);
+            Bukkit.broadcastMessage(winner.getName() + " has won the battle against " + loser.getName() + ". congrats!");
+
+            for (Player broadcastplayer : Bukkit.getOnlinePlayers()) {
+                broadcastplayer.sendTitle(ChatColor.GREEN + winner.getName() + "won!", ChatColor.WHITE + "gg", 0, 60, 1);
             }
         }
     }

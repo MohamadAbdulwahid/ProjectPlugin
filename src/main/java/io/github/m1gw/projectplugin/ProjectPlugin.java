@@ -28,7 +28,7 @@ public final class ProjectPlugin extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("PvP plugin enabled :)");
 
         //check corrent version
-        Bukkit.broadcastMessage("V124bruh");
+        Bukkit.broadcastMessage("Final for now version 9000");
 
         // Add Teams
         createTeam(winners);

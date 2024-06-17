@@ -16,7 +16,6 @@ public class PlayerQuit implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         if (event.getPlayer().isOp() || (event.getPlayer() != Battle.player2Player && event.getPlayer() != Battle.player1Player)
                 || Battle.player1Player == null || Battle.player2Player == null) {
-            Bukkit.broadcastMessage("We got here!");
             return;
         }
 
