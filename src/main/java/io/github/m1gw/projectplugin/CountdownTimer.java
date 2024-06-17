@@ -26,10 +26,7 @@ public class CountdownTimer extends BukkitRunnable {
                 player.sendTitle(ChatColor.DARK_GREEN + "GO!", "", 0, 20, 1);
             }
 
-            ProjectPlugin.fillBlocks(Bukkit.getWorld("world"), -21, -4, -1, -21, -2, 1, Material.AIR);
-
-            ProjectPlugin.fillBlocks(Bukkit.getWorld("world"), 21, -2, -2, 21, -4, 0, Material.AIR);
-
+            Bukkit.getScheduler().runTask(plugin, () -> ProjectPlugin.removeGlassBlocking());
             return;
         }
 

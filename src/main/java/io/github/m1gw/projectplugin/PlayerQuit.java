@@ -35,7 +35,7 @@ public class PlayerQuit implements Listener {
             Bukkit.broadcastMessage("Player 2 (" + loser.getName() + ") has left the game. " + "Match ended");
         }
         else {
-            Bukkit.broadcastMessage("_How did we get here?_");
+            Bukkit.broadcastMessage("_How did we get here?_ the world is broken");
             return;
         }
 
@@ -56,9 +56,6 @@ public class PlayerQuit implements Listener {
         }
 
         ProjectPlugin.fillBlocks(Bukkit.getWorld("world"), -11, -10, 5, 12, -10, 8, Material.OAK_PLANKS);
-        //display title to everyone
 
-
-        ///fill 11 -10 5 12 -10 8 minecraft:oak_planks
     }
 }

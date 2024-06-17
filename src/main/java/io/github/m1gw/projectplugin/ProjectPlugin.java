@@ -28,7 +28,7 @@ public final class ProjectPlugin extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("PvP plugin enabled :)");
 
         //check corrent version
-        Bukkit.broadcastMessage("123");
+        Bukkit.broadcastMessage("V124bruh");
 
         // Add Teams
         createTeam(winners);
@@ -136,6 +136,13 @@ public final class ProjectPlugin extends JavaPlugin {
         if (player2 != null) {
             player2.sendMessage(message);
         }
+
+    }
+
+    public static void removeGlassBlocking() {
+        ProjectPlugin.fillBlocks(Bukkit.getWorld("world"), -21, -4, -1, -21, -2, 1, Material.AIR);
+
+        ProjectPlugin.fillBlocks(Bukkit.getWorld("world"), 21, -2, -2, 21, -4, 0, Material.AIR);
 
     }
 

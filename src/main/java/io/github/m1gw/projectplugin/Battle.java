@@ -23,9 +23,11 @@ public class Battle implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player) {
+        if (sender instanceof Player || 1==1) {
             if (args != null && args.length == 0) {
-                sender.sendMessage("Starting the battle...");
+                if(sender instanceof Player){
+                    sender.sendMessage("Starting the battle...");
+                }
                 Team team = scoreboard.getTeam(ProjectPlugin.currentPlayers);
                 Set<OfflinePlayer> members = team.getPlayers();
                 if (members.size() >= 2) {
@@ -40,7 +42,9 @@ public class Battle implements CommandExecutor {
 
                     OfflinePlayer player1 = membersList.get(index1);
                     OfflinePlayer player2 = membersList.get(index2);
-                    sender.sendMessage("found players: " + player1.getName() + " and " + player2.getName());
+                    if(sender instanceof Player){
+                        sender.sendMessage("found players: " + player1.getName() + " and " + player2.getName());
+                    }
 
                     // teleport both players to the battle area
                     player1Player = Bukkit.getPlayer(player1.getName());

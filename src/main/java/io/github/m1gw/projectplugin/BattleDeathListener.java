@@ -2,6 +2,7 @@ package io.github.m1gw.projectplugin;
 
 import io.github.m1gw.projectplugin.Battle;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Player;
@@ -22,7 +23,6 @@ public class BattleDeathListener implements Listener {
         Player player = event.getPlayer();
 
         if (!Battle.battleStarted) { // it should be false, when we do /battle start
-            ProjectPlugin.sendInfoToUs("battleStarted: " + Battle.battleStarted);
             return;
         }
 
@@ -63,6 +63,11 @@ public class BattleDeathListener implements Listener {
             winner.getInventory().clear();
             loser.getInventory().clear();
             Battle.battleStarted = false;
+
+            Bukkit.broadcastMessage("The player " + winner.getName() + " has won the battle against " + loser.getName() + " congrats!");
+            for (Player player2 : Bukkit.getOnlinePlayers()) {
+                player2.sendTitle(ChatColor.DARK_GREEN + "gg", "", 0, 20, 1);
+            }
         }
     }
 }

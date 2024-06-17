@@ -1,10 +1,14 @@
 package io.github.m1gw.projectplugin;
 
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class PlayerDamage implements Listener {
     @EventHandler
@@ -24,9 +28,16 @@ public class PlayerDamage implements Listener {
     @EventHandler
     public void PlayerInteractEvent(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+
         if (player.isOp()) {
             return;
         }
-        event.setCancelled(true);
+        
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            Block clickedBlock = event.getClickedBlock();
+            if (clickedBlock.getType() != Material.AIR) {
+                event.setCancelled(true);
+            }
+        }
     }
 }
