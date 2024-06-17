@@ -34,7 +34,7 @@ def sftp_upload(local_path, remote_path, hostname, port, username, password):
         print(f"An unexpected error occurred: {e}")
 
 # Example usage
-local_path = r'C:\Users\Moritz\Documents\GitHub\ProjectPlugin\target\ProjectPlugin-1.0.jar'
+local_path = r'.\target\ProjectPlugin-1.0.jar'
 remote_path = r'/home/MinecraftSpigotServer_1.20.6/plugins/ProjectPlugin-1.0.jar'
 hostname = '109.123.244.124'
 port = 22

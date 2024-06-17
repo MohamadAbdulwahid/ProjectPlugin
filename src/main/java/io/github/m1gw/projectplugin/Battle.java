@@ -83,12 +83,17 @@ public class Battle implements CommandExecutor {
                     return true;
                 }
                 // activate timer and remove glass walls
-                Bukkit.getWorld("world").getBlockAt(12, -10, 5).setType(Material.REDSTONE_BLOCK);
+                //Bukkit.getWorld("world").getBlockAt(12, -10, 5).setType(Material.REDSTONE_BLOCK);
+                CountdownTimer.startCountdown(ProjectPlugin.getPlugin(ProjectPlugin.class), 5);
 
+            } else if ("tp".equals(args[0].toString())) {
+                ((Player) sender).teleport(new org.bukkit.Location(Bukkit.getWorld("world"), 3, 0, 0));
             } else {
-                sender.sendMessage("Usage: /battle");
+                sender.sendMessage("Usage: /battle [start/tp] (or none to initialize)");
             }
+
+            return true;
         }
-        return true;
+        return false;
     }
 }

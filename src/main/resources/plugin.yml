@@ -10,7 +10,7 @@ commands:
   gotospawn:
     description: Allows players to go to spawn or send others to spawn
     usage: /<command> ([player])
-    permission: projectplugin.admin
+    #permission: projectplugin.admin
   addnewpeopletogame:
     description: Allows/Forbid players to join participants in the game when joined
     usage: /addnewpeopletogame true/false

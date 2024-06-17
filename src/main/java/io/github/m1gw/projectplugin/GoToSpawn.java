@@ -13,6 +13,10 @@ public class GoToSpawn implements CommandExecutor {
         if (sender != null) {
             if(args != null && args.length > 0) {
                 player = org.bukkit.Bukkit.getPlayer(args[0]);
+                if(!sender.isOp()){
+                    sender.sendMessage("Nope");
+                    return false;
+                }
                 if(player == null) {
                     sender.sendMessage("Player not found");
                     return true;
